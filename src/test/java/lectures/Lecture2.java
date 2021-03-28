@@ -15,8 +15,12 @@ public class Lecture2 {
 
   @Test
   public void rangeIteratingLists() throws Exception {
-    List<Person> people = MockData.getPeople();
-
+       List<Person> people = MockData.getPeople();
+       IntStream.range(0, people.size())
+               .forEach(index -> {
+                 Person person = people.get(index);
+                 System.out.println(person);
+               });
   }
 
   @Test

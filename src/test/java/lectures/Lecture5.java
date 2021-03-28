@@ -8,6 +8,7 @@ import beans.Person;
 import beans.PersonDTO;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import mockdata.MockData;
@@ -18,20 +19,30 @@ public class Lecture5 {
   @Test
   public void understandingFilter() throws Exception {
     ImmutableList<Car> cars = MockData.getCars();
+    List<Car> carsFiltered = cars.stream()
+            .filter(car -> car.getPrice() > 40000)
+            .collect(Collectors.toList());
 
+    carsFiltered.forEach(System.out::println);
+    System.out.println(carsFiltered.size());
   }
 
   @Test
   public void ourFirstMapping() throws Exception {
     // transform from one data type to another
     List<Person> people = MockData.getPeople();
-
+    List<PersonDTO> dtos = people.stream()
+            .map(person -> new PersonDTO(person.getId(), person.getFirstName(), person.getAge()))
+            .collect(Collectors.toList());
+    System.out.println(dtos);
   }
 
   @Test
   public void averageCarPrice() throws Exception {
     // calculate average of car prices
-
+    List<Car> cars = MockData.getCars();
+    double average = cars.stream().mapToDouble(Car::getPrice).average().orElse(-1);
+    System.out.println(average);
   }
 
   @Test

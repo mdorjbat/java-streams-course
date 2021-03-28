@@ -3,6 +3,7 @@ package lectures;
 
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.Before;
@@ -25,12 +26,25 @@ public class Lecture10 {
   public void withoutFlatMap() throws Exception {
 //    [Mariam, Alex, Ismail, John, Alesha, Andre, Susy, Ali]
 
+    List<String> ans = new ArrayList<>();
+
+    for(int i=0; i<arrayListOfNames.size(); i++){
+      for(int j=0; j<arrayListOfNames.get(i).size(); j++){
+        ans.add(arrayListOfNames.get(i).get(j));
+      }
+    }
+    System.out.println(ans);
+
   }
 
   @Test
   public void withFlatMap() throws Exception {
 //   [Mariam, Alex, Ismail, John, Alesha, Andre, Susy, Ali]
+    List<String> collect = arrayListOfNames.stream()
+            .flatMap(List::stream)
+            .collect(Collectors.toList());
 
+    System.out.println(collect);
   }
 
 }
